@@ -3,9 +3,14 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
+import PrivateRoute from './components/PrivateRoute';
+
+import { StateProvider } from './state';
+import { reducer } from './reducers';
+
 /* Pages */
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Auth from './pages/Auth';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -25,17 +30,30 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import AuthProvider from './components/auth/AuthProvider';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route path="/login" component={Login} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const initialState = {
+    auth: {
+      isAuthenticated: false,
+    },
+  };
+  return (
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <AuthProvider>
+        <IonApp>
+          <IonReactRouter>
+            <IonRouterOutlet>
+              <PrivateRoute path="/home" component={Home} exact={true} />
+              <Route path="/register" render={() => <Auth formType="register" />} exact={true} />
+              <Route path="/login" render={() => <Auth formType="login" />} exact={true} />
+              <Route exact path="/" render={() => <Redirect to="/home" />} />
+            </IonRouterOutlet>
+          </IonReactRouter>
+        </IonApp>
+      </AuthProvider>
+    </StateProvider>
+  );
+};
 
 export default App;
