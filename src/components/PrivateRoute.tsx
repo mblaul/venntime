@@ -1,31 +1,34 @@
-import React, { ReactElement, useState } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { StateContext } from '../state';
 
-type PrivateRouteProps = {
-  component: React.Component | React.FC | ReactElement;
-  path: string;
-  exact: boolean;
-};
+class PrivateRoute extends Component<RouteProps> {
+  static contextType = StateContext;
+  
+  render() {
+    
+    const { component, ...rest } = this.props;
+    const Component: any = component;
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {
-  const [ isAuthenticated, setIsAuthenticated ] = useState(true);
+    const [ { isAuthenticated }, ] = this.context;
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? (
-          <div>Logged in</div>
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: props.location },
-            }}
-          />
-        )}
-    />
-  );
-};
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          isAuthenticated ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/login',
+                state: { from: this.props.location },
+              }}
+            />
+          )}
+      />
+    );
+  }
+}
 
 export default PrivateRoute;

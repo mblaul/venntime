@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, Fragment } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import { IonButton, IonInput, IonItem, IonLabel } from '@ionic/react';
 
@@ -55,15 +55,12 @@ const AuthForm: React.FC<AuthFormProps> = ({ formType }) => {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(user => {
-              window.alert(JSON.stringify(user));
-              history.push('/home');
+              window.alert('logged in!')
             })
             .catch(error => {
-              window.alert((JSON.stringify(error));
             });
-            break;
+          break;
         }
-
         case 'register': {
           fire
             .auth()
@@ -75,7 +72,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ formType }) => {
             .catch(error => {
               window.alert(error);
             });
-          }
+          break;
+        }
+      }
     }
   };
 

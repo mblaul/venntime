@@ -1,19 +1,15 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React, { MouseEvent } from 'react';
 
-import fire from '../fire'
+import fire from '../fire';
 
 const Home: React.FC = () => {
-
   const handleClick = (event: MouseEvent) => {
-    fire.auth().signOut().then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
+    fire.auth().signOut().then(() => {}).catch(error => {
       // An error happened.
     });
   };
 
-  
   return (
     <IonPage>
       <IonHeader>

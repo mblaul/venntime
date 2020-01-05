@@ -1,10 +1,20 @@
-export const reducer = (state, action) => {
+const initialState = {
+  isAuthenticated: false,
+  user: null,
+};
+
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_AUTH': {
+    case 'LOGIN_USER': {
+      const { user } = action;
       return {
         ...state,
-        auth: action.auth,
+        user,
+        isAuthenticated: true,
       };
+    }
+    case 'LOGOUT_USER': {
+      return initialState;
     }
     default: {
       return state;

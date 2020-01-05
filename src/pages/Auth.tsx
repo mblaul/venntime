@@ -1,4 +1,5 @@
-import React, { useState, FormEvent } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router';
 
 import {
   IonCard,
@@ -11,6 +12,8 @@ import {
   IonRow,
 } from '@ionic/react';
 
+import { useStateValue } from '../state';
+
 import startCase from 'lodash/startCase';
 import AuthForm from '../components/auth/AuthForm';
 
@@ -19,6 +22,11 @@ type AuthProps = {
 };
 
 const Auth: React.FC<AuthProps> = ({ formType }) => {
+
+  const [ appState, dispatch ] = useStateValue();
+  
+  if (appState.isAuthenticated) return <Redirect to="/home" />
+
   return (
     <IonPage>
       <IonContent className="ion-padding">
@@ -31,7 +39,7 @@ const Auth: React.FC<AuthProps> = ({ formType }) => {
             </IonRow>
             <IonCard className="ion-padding">
               <IonCardContent>
-                <AuthForm formType={formType}/>
+                <AuthForm formType={formType} />
               </IonCardContent>
             </IonCard>
           </IonCol>
