@@ -1,15 +1,20 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import fire from '../../fire';
 import { useStateValue } from '../../state';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 const AuthProvider: React.FC = ({ children }) => {
   const [ appState, dispatch ] = useStateValue();
   const [ user, initialising, error ] = useAuthState(fire.auth());
   
-  console.log(user);
-  console.log(appState.user);
+  if (initialising && !appState.isLoginPending) {
+    dispatch({
+      type: 'LOGIN_USER_PENDING',
+    });
+  }
+
   if (user && !appState.user) {
     dispatch({
       type: 'LOGIN_USER',
@@ -17,7 +22,7 @@ const AuthProvider: React.FC = ({ children }) => {
     });
   }
 
-  if (appState.user && !user) {
+  if (!user && appState.user) {
     dispatch({
       type: 'LOGOUT_USER',
     });
@@ -25,12 +30,14 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <>
-      {children}
+      {initialising ? (
+        <div>Loading...</div>
+      ) : (
+        children
+      )}
+      
     </>
   );
 };
-
-// @ts-ignore
-AuthProvider.whyDidYouRender = true
 
 export default AuthProvider;

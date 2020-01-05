@@ -4,13 +4,12 @@ import { StateContext } from '../state';
 
 class PrivateRoute extends Component<RouteProps> {
   static contextType = StateContext;
-  
+
   render() {
-    
     const { component, ...rest } = this.props;
     const Component: any = component;
 
-    const [ { isAuthenticated }, ] = this.context;
+    const [ { isAuthenticated } ] = this.context;
 
     return (
       <Route
