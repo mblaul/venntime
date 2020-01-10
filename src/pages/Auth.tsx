@@ -24,8 +24,6 @@ type AuthProps = {
 const Auth: React.FC<AuthProps> = ({ formType }) => {
   const [ { isAuthenticated } ] = useStateValue();
 
-  console.log(isAuthenticated);
-
   if (isAuthenticated) {
     return <Redirect to="/home" />;
   } else {
