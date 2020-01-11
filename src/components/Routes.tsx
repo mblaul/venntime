@@ -13,7 +13,7 @@ import Home from '../pages/Home';
 import Auth from '../pages/Auth';
 
 const Routes: React.FC = () => {
-  const [ { isAuthenticated, isLoginPending } ] = useStateValue();
+  const [ { isAuthenticated } ] = useStateValue();
 
   return (
     <IonReactRouter>

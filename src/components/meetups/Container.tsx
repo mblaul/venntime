@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { useDocument } from 'react-firebase-hooks/firestore';
-import { MeetUp } from '../../types';
-
 import fire from '../../fire';
+import { useDocument } from 'react-firebase-hooks/firestore';
 
+import Loading from '../Loading';
+
+import { MeetUp } from '../../types';
 import MeetUpCard from './Card';
 
 const MeetUpsContainer: React.FC = () => {
@@ -17,7 +18,7 @@ const MeetUpsContainer: React.FC = () => {
 
   const meetUp: MeetUp = data;
 
-  return loading || error ? null : <MeetUpCard meetUp={meetUp} />;
+  return <MeetUpCard loading={loading} meetUp={meetUp} />;
 };
 
 export default MeetUpsContainer;

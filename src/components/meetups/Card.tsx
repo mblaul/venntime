@@ -1,30 +1,43 @@
 import React from 'react';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonSpinner, IonItem } from '@ionic/react';
 
 import { MeetUp } from '../../types';
 
 import { formatDate } from '../../utils/dateTime';
 
 type MeetUpCardProps = {
-  meetUp: MeetUp;
+  loading?: boolean;
+  meetUp?: MeetUp;
 };
 
-const MeetUpCard: React.FC<MeetUpCardProps> = ({ meetUp }) => {
-  const { name, owner, peeps, time } = meetUp;
+const MeetUpCard: React.FC<MeetUpCardProps> = ({ loading, meetUp }) => {
+  
 
-  const peepNames = peeps && peeps.map(peep => peep.firstName).join(', ');
+  const peepNames = meetUp && meetUp.peeps && meetUp.peeps.map(peep => peep.firstName).join(', ');
 
   return (
     <IonContent>
       <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>{name || 'Meetup'}</IonCardTitle>
-          <IonCardSubtitle>organizer: {owner.firstName}</IonCardSubtitle>
-          {peepNames && <IonCardSubtitle>with: {peepNames}</IonCardSubtitle>}
-        </IonCardHeader>
+        {loading && (
+          <>
+          <IonCardHeader>
+            <IonCardTitle>Loading..</IonCardTitle>
+              <IonCardContent><IonSpinner name="crescent" style={{width: '100%'}}/></IonCardContent>
+          </IonCardHeader>
+          </>
+        )}
+        {meetUp && (
+          <>
+          <IonCardHeader>
+            <IonCardTitle>{meetUp.name || 'Meetup'}</IonCardTitle>
+              <IonCardSubtitle>organizer: {meetUp.owner.firstName}</IonCardSubtitle>
+            {peepNames && <IonCardSubtitle>with: {peepNames}</IonCardSubtitle>}
+          </IonCardHeader>
 
-        <IonCardContent>{time && formatDate(time.toDate())}</IonCardContent>
-        <IonCardContent>organizer: {owner.firstName}</IonCardContent>
+            <IonCardContent>{meetUp.time && formatDate(meetUp.time.toDate())}</IonCardContent>
+            <IonCardContent>organizer: {meetUp.owner.firstName}</IonCardContent>
+          </>
+        )}
       </IonCard>
     </IonContent>
   );
