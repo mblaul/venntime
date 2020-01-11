@@ -9,8 +9,9 @@ import PrivateRoute from '../components/PrivateRoute';
 import UnauthenticatedRoute from '../components/UnauthenticatedRoute';
 
 /* Pages */
-import Home from '../pages/Home';
 import Auth from '../pages/Auth';
+import Home from '../pages/Home';
+import MeetUps from '../pages/MeetUps';
 
 const Routes: React.FC = () => {
   const [ { isAuthenticated } ] = useStateValue();
@@ -19,12 +20,11 @@ const Routes: React.FC = () => {
     <IonReactRouter>
       <IonRouterOutlet>
         <PrivateRoute exact path="/home" component={Home} />
+        <Route exact path="/meetups" component={MeetUps} />
         <Route exact path="/" render={() => <Redirect to="/home" />} />
-
         {/* Routes for guest users only */}
         <Route exact path="/login" render={() => <Auth formType="login" />} />
         <Route exact path="/register" render={() => <Auth formType="register" />} />
-
         {/* If no matching route found redirect user to home or root */}
         <Route render={() => <Redirect to={isAuthenticated ? '/home' : '/'} />} />
       </IonRouterOutlet>
