@@ -17,4 +17,4 @@ const MeetUps: React.FC = () => {
   );
 };
 
-export default Home;
+export default MeetUps;
