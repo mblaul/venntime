@@ -3,8 +3,6 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabBut
 
 import { add } from 'ionicons/icons';
 
-import MeetUpsContainer from '../components/meetups/Container';
-
 const Home: React.FC = () => {
   return (
     <IonPage>

@@ -6,7 +6,6 @@ import { IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import PrivateRoute from '../components/PrivateRoute';
-import UnauthenticatedRoute from '../components/UnauthenticatedRoute';
 
 /* Pages */
 import Auth from '../pages/Auth';

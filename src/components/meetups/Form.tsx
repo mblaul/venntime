@@ -4,8 +4,6 @@ import { useHistory } from 'react-router';
 
 import fire from '../../fire';
 
-import { MeetUp } from '../../types';
-
 import { meetUpForms } from '../../forms/meetUp/';
 import FormField from '../../types/FormField';
 

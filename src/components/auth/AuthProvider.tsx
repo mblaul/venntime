@@ -7,7 +7,7 @@ import { useStateValue } from '../../state';
 
 const AuthProvider: React.FC = ({ children }) => {
   const [ appState, dispatch ] = useStateValue();
-  const [ user, initialising, error ] = useAuthState(fire.auth());
+  const [ user, initialising ] = useAuthState(fire.auth());
   
   if (initialising && !appState.isLoginPending) {
     dispatch({

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { firestore } from 'firebase';
 import fire from '../../fire';
 import { useDocument } from 'react-firebase-hooks/firestore';
 

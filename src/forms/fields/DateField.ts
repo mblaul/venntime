@@ -1,8 +1,8 @@
 import { IonDatetime } from '@ionic/react';
 import { firestore } from 'firebase';
-import { parseISO, getUnixTime, formatISO } from 'date-fns'
+import { parseISO, getUnixTime } from 'date-fns'
 import FormField from './FormField';
-import { FormField as FormFieldType, Timestamp } from '../../types';
+import { FormField as FormFieldType } from '../../types';
 
 export default class DateField extends FormField {
   public static formatToTimestamp(value: string, field: FormField) {
