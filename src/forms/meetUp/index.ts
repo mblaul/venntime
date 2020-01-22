@@ -64,7 +64,7 @@ const create = {
   sections: [
     { name: 'Info', fields: [ name, organizer, peeps ] },
     { name: 'Place', fields: [ place ] },
-    { name: 'Date', fields: [ date, time ] },
+    { name: 'Suggested Time', fields: [ date, time ] },
   ],
 };
 

@@ -8,13 +8,12 @@ import { formatDate } from '../../utils/dateTime';
 type MeetUpCardProps = {
   error?: Error,
   loading?: boolean;
-  meetUp?: MeetUp;
+  meetup?: MeetUp;
 };
 
-const MeetUpCard: React.FC<MeetUpCardProps> = ({ error, loading, meetUp }) => {
+const MeetUpCard: React.FC<MeetUpCardProps> = ({ error, loading, meetup }) => {
   
-
-  const peepNames = meetUp && meetUp.peeps && meetUp.peeps.map(peep => peep.firstName).join(', ');
+  const peepNames = meetup && meetup.peeps && meetup.peeps.map(peep => peep.firstName).join(', ');
 
   return (
     <IonContent>
@@ -32,16 +31,16 @@ const MeetUpCard: React.FC<MeetUpCardProps> = ({ error, loading, meetUp }) => {
           </>
         )}
 
-        {meetUp && (
+        {meetup && (
           <>
           <IonCardHeader>
-            <IonCardTitle>{meetUp.name || 'Meetup'}</IonCardTitle>
-              <IonCardSubtitle>organizer: {meetUp.organizer.firstName}</IonCardSubtitle>
+            <IonCardTitle>{meetup.name || 'Meetup'}</IonCardTitle>
+              <IonCardSubtitle>organizer: {meetup.organizer.firstName}</IonCardSubtitle>
             {peepNames && <IonCardSubtitle>with: {peepNames}</IonCardSubtitle>}
           </IonCardHeader>
 
-            <IonCardContent>{meetUp.time && formatDate(meetUp.time.toDate())}</IonCardContent>
-            <IonCardContent>organizer: {meetUp.organizer.firstName}</IonCardContent>
+            <IonCardContent>{meetup.time && formatDate(meetup.time.toDate())}</IonCardContent>
+            <IonCardContent>organizer: {meetup.organizer.firstName}</IonCardContent>
           </>
         )}
 

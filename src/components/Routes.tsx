@@ -20,11 +20,16 @@ const Routes: React.FC = () => {
     <IonReactRouter>
       <IonRouterOutlet>
         <PrivateRoute exact path="/home" component={Home} />
+
         <Route exact path="/meetups" component={MeetUps} />
+        <Route exact path="/meetups/new" component={MeetUps} />
+        <Route exact path="/meetups/:meetupId" component={MeetUps} />
         <Route exact path="/" render={() => <Redirect to="/home" />} />
+
         {/* Routes for guest users only */}
         <Route exact path="/login" render={() => <Auth formType="login" />} />
         <Route exact path="/register" render={() => <Auth formType="register" />} />
+
         {/* If no matching route found redirect user to home or root */}
         <Route render={() => <Redirect to={isAuthenticated ? '/home' : '/'} />} />
       </IonRouterOutlet>
